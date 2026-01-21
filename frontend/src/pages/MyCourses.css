@@ -1,0 +1,65 @@
+.my-courses-page {
+    padding: 40px 0 80px;
+}
+
+.my-courses-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.my-courses-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.my-courses-header p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}
+
+.my-courses-loading {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.my-courses-loading p {
+    color: var(--text-secondary);
+}
+
+.my-courses-empty {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.my-courses-empty .empty-icon {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.my-courses-empty h2 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.my-courses-empty p {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.my-courses-info {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .my-courses-header h1 {
+        font-size: 2rem;
+    }
+}

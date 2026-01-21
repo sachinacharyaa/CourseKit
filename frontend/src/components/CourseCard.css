@@ -1,0 +1,87 @@
+.course-card {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* Card styles inherited from .card class in index.css */
+    background: #ffffff;
+    /* Fallback/Base */
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.course-image {
+    height: 180px;
+    overflow: hidden;
+    background: var(--bg-tertiary);
+    position: relative;
+}
+
+.course-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.course-card:hover .course-image img {
+    transform: scale(1.05);
+}
+
+.course-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    /* Soft Indigo Gradient for Placeholder */
+    background: linear-gradient(135deg, #e0e7ff 0%, #ffffff 100%);
+    color: #a5b4fc;
+}
+
+.course-content {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.course-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    color: var(--text-primary);
+}
+
+.course-description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.course-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    /* Subtle separator for light mode */
+}
+
+.course-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    /* Removed gradients for price to make it crisp on light bg */
+}
+
+.course-actions {
+    display: flex;
+    gap: 8px;
+}
