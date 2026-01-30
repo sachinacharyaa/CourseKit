@@ -1,11 +1,22 @@
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Library } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = () => {
     const { isAuthenticated, isUser, isAdmin, logout } = useAuth();
     const navigate = useNavigate();
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 10);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const handleLogout = () => {
         logout();
@@ -13,35 +24,54 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="navbar">
-            <div className="container navbar-container">
+        <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
+            <div className="navbar-container">
+                {/* Logo */}
                 <Link to="/" className="navbar-logo">
-                    <Library className="logo-icon" size={28} strokeWidth={2.5} />
                     <span className="logo-text">CourseKit</span>
                 </Link>
 
-                <div className="navbar-links">
+                {/* Center Navigation */}
+                <div className="navbar-center">
                     {!isAuthenticated && (
                         <>
-                            <Link to="/signin" className="nav-link">Sign In</Link>
-                            <Link to="/signup" className="btn btn-primary btn-sm">Get Started</Link>
-                            <Link to="/admin/signin" className="nav-link admin-link">Admin</Link>
+                            <div className="nav-item has-dropdown">
+                                <span className="nav-link">
+                                    Products <ChevronDown size={16} />
+                                </span>
+                            </div>
+                            <div className="nav-item has-dropdown">
+                                <span className="nav-link">
+                                    Resources <ChevronDown size={16} />
+                                </span>
+                            </div>
+                            <Link to="/courses" className="nav-link">Courses</Link>
                         </>
                     )}
-
+                    
                     {isUser && (
                         <>
                             <Link to="/courses" className="nav-link">Browse Courses</Link>
-                            <Link to="/my-courses" className="nav-link">My Courses</Link>
-                            <button onClick={handleLogout} className="btn btn-ghost btn-sm">Logout</button>
+                            <Link to="/my-courses" className="nav-link">My Learning</Link>
                         </>
                     )}
 
                     {isAdmin && (
+                        <Link to="/admin/dashboard" className="nav-link">Dashboard</Link>
+                    )}
+                </div>
+
+                {/* Right Side Actions */}
+                <div className="navbar-actions">
+                    {!isAuthenticated ? (
                         <>
-                            <Link to="/admin/dashboard" className="nav-link">Dashboard</Link>
-                            <button onClick={handleLogout} className="btn btn-ghost btn-sm">Logout</button>
+                            <Link to="/signin" className="nav-link login-link">Login</Link>
+                            <Link to="/signup" className="btn btn-outline btn-sm">Sign Up</Link>
                         </>
+                    ) : (
+                        <button onClick={handleLogout} className="btn btn-outline btn-sm">
+                            Logout
+                        </button>
                     )}
                 </div>
             </div>

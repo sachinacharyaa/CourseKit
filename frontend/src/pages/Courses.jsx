@@ -61,8 +61,8 @@ const Courses = () => {
         <div className="courses-page">
             <div className="container">
                 <div className="courses-header fade-in">
-                    <h1>Explore <span className="gradient-text">Courses</span></h1>
-                    <p>Discover amazing courses from expert instructors</p>
+                    <h1>Explore <em>Amazing Courses</em></h1>
+                    <p>Discover premium courses from expert instructors worldwide</p>
                 </div>
 
                 {courses.length === 0 ? (

@@ -2,16 +2,21 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    /* Card styles inherited from .card class in index.css */
     background: #ffffff;
-    /* Fallback/Base */
-    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.course-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
 }
 
 .course-image {
     height: 180px;
     overflow: hidden;
-    background: var(--bg-tertiary);
+    background: linear-gradient(135deg, #fff5f5 0%, #ffecec 50%, #ffe0e0 100%);
     position: relative;
 }
 
@@ -32,10 +37,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 4rem;
-    /* Soft Indigo Gradient for Placeholder */
-    background: linear-gradient(135deg, #e0e7ff 0%, #ffffff 100%);
-    color: #a5b4fc;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffecec 50%, #ffd4d4 100%);
+}
+
+.course-placeholder svg {
+    color: #ffb3b3;
 }
 
 .course-content {
@@ -46,16 +52,16 @@
 }
 
 .course-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    line-height: 1.3;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 1.35;
     color: var(--text-primary);
 }
 
 .course-description {
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     line-height: 1.6;
     flex: 1;
     display: -webkit-box;
@@ -69,19 +75,39 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 20px;
-    border-top: 1px solid rgba(0, 0, 0, 0.04);
-    /* Subtle separator for light mode */
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
 }
 
 .course-price {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-weight: 700;
-    color: var(--accent-primary);
-    /* Removed gradients for price to make it crisp on light bg */
+    color: var(--text-primary);
 }
 
 .course-actions {
     display: flex;
     gap: 8px;
+}
+
+/* Badge Styles */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: var(--radius-pill);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-primary {
+    background: rgba(255, 127, 80, 0.1);
+    color: var(--accent-coral);
+}
+
+.badge-success {
+    background: rgba(32, 201, 151, 0.1);
+    color: var(--accent-teal);
 }

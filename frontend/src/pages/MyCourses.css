@@ -1,21 +1,38 @@
 .my-courses-page {
-    padding: 40px 0 80px;
+    padding: 60px 24px 100px;
+    min-height: calc(100vh - 72px);
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #fafafa 100%
+    );
 }
 
 .my-courses-header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 60px;
 }
 
 .my-courses-header h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 400;
     margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.my-courses-header h1 em {
+    font-style: italic;
+    font-weight: 500;
 }
 
 .my-courses-header p {
     font-size: 1.1rem;
     color: var(--text-secondary);
+}
+
+.my-courses-grid {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .my-courses-loading {
@@ -27,29 +44,42 @@
     gap: 16px;
 }
 
+.my-courses-loading .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--accent-coral);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
 .my-courses-loading p {
     color: var(--text-secondary);
 }
 
 .my-courses-empty {
     text-align: center;
-    padding: 80px 20px;
+    padding: 100px 24px;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
 .my-courses-empty .empty-icon {
     font-size: 4rem;
     display: block;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .my-courses-empty h2 {
     font-size: 1.5rem;
+    font-weight: 600;
     margin-bottom: 8px;
+    color: var(--text-primary);
 }
 
 .my-courses-empty p {
     color: var(--text-secondary);
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 .my-courses-info {
@@ -59,7 +89,11 @@
 }
 
 @media (max-width: 768px) {
+    .my-courses-page {
+        padding: 40px 16px 80px;
+    }
+
     .my-courses-header h1 {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
 }

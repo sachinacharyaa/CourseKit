@@ -37,7 +37,7 @@ const MyCourses = () => {
         <div className="my-courses-page">
             <div className="container">
                 <div className="my-courses-header fade-in">
-                    <h1>My <span className="gradient-text">Courses</span></h1>
+                    <h1>My <em>Learning Journey</em></h1>
                     <p>Your purchased courses are ready to explore</p>
                 </div>
 

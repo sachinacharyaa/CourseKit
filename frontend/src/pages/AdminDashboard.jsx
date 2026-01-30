@@ -116,8 +116,8 @@ const AdminDashboard = () => {
             <div className="container">
                 <div className="dashboard-header fade-in">
                     <div className="dashboard-title">
-                        <h1>Admin <span className="gradient-text">Dashboard</span></h1>
-                        <p>Manage your courses and track your sales</p>
+                        <h1>Creator <em>Dashboard</em></h1>
+                        <p>Manage your courses and track your growth</p>
                     </div>
                     <button onClick={openCreateModal} className="btn btn-primary">
                         <Plus size={18} /> Create Course
