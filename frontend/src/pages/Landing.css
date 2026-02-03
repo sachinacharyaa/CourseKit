@@ -469,11 +469,11 @@
 }
 
 .cta-card h2 {
-    font-size: clamp(1.75rem, 3vw, 2.25rem);
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 16px;
 }
+
 
 .cta-card p {
     font-size: 1.1rem;

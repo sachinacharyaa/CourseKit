@@ -245,8 +245,11 @@ const Landing = () => {
             {/* CTA Section */}
             <section className="cta-section">
                 <div className="container">
-                    <div className="cta-card">
-                        <h2>Ready to Start Your Creator Journey?</h2>
+                <div className="cta-card">
+<h2 className="font-bold whitespace-nowrap w-fit">
+  Ready to Start Your Creator Journey?
+</h2>
+
                         <p>Join thousands of educators already growing their impact with CourseKit.</p>
                         {!isAuthenticated && (
                             <div className="cta-buttons">
