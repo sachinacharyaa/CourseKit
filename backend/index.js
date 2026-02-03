@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require("express")
 const cors = require("cors")
 const app = express();
+const port = process.env.PORT || 3000;
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 app.use(cors())
@@ -32,8 +33,8 @@ async function main() {
     try {
         await mongoose.connect(process.env.MONGO_URL);
         console.log("Connected to MongoDB");
-        app.listen(3000, () => {
-             console.log("Server is running on port 3000");
+        app.listen(port, () => {
+            console.log(`Server is running on port ${port}`);
         });
     } catch (error) {
         console.error("Error connecting to database:", error);
