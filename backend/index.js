@@ -13,14 +13,12 @@ const allowedOrigins = [
     "http://localhost:3000",
     "https://course-kit-frontend.vercel.app",
     "https://coursekit.vercel.app",
-    process.env.FRONTEND_URL, // Allow custom frontend URL from env
-].filter(Boolean); // Remove undefined values
+    process.env.FRONTEND_URL,
+].filter(Boolean);
 
 const corsOptions = {
     origin: function (origin, callback) {
-        // Allow requests with no origin (mobile apps, Postman, etc.)
         if (!origin) return callback(null, true);
-        
         if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
             callback(null, true);
         } else {
@@ -35,18 +33,24 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Connect to MongoDB (serverless-safe with caching)
-connectDB();
+// Middleware to connect to MongoDB before each request (serverless-safe)
+app.use(async (req, res, next) => {
+    try {
+        await connectDB();
+        next();
+    } catch (error) {
+        console.error("Database connection error:", error);
+        res.status(500).json({ 
+            status: "error", 
+            message: "Database connection failed" 
+        });
+    }
+});
 
 // Import route handlers
 const { userRouter } = require("./routes/user");
 const { courseRouter } = require("./routes/course");
 const { AdminRouter } = require("./routes/admin");
-
-// Route handlers
-app.use("/user", userRouter);
-app.use("/course", courseRouter);
-app.use("/admin", AdminRouter);
 
 // Root endpoint
 app.get("/", (req, res) => {
@@ -67,6 +71,11 @@ app.get("/health", (req, res) => {
         environment: process.env.NODE_ENV || "development"
     });
 });
+
+// Route handlers
+app.use("/user", userRouter);
+app.use("/course", courseRouter);
+app.use("/admin", AdminRouter);
 
 // Handle 404 for undefined routes
 app.use((req, res) => {
