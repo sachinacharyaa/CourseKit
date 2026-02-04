@@ -1,8 +1,9 @@
-# CourseKit 🎓
+# CourseKit
 
 An platform to help you monetize your courses with a modern, beautiful interface.
-
-![CourseKit Preview](https://github.com/user-attachments/assets/3208197c-bfc3-410b-bd32-42bb80b6aa61)
+ https://coursekxt.vercel.app/
+ 
+<img width="1907" height="862" alt="Screenshot 2026-02-04 142329" src="https://github.com/user-attachments/assets/02a7fcec-c98e-49eb-9aa8-1db008642da4" />
 
 ## Features
 
