@@ -325,7 +325,7 @@ const Landing = () => {
                                     <MessageSquare size={28} />
                                     <Sparkles size={16} className="sparkle-icon" />
                                 </div>
-                                <h2>How did you like CourseKit?</h2>
+                                <h2>How did you like <em>CourseKit</em>?</h2>
                                 <p className="feedback-subtitle">
                                     Should we improve it with more features?
                                     <br />
