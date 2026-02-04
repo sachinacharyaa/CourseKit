@@ -81,6 +81,20 @@ npm run backend
 npm run frontend
 ```
 
+## Deployment
+
+**Backend**: Already deployed at https://course-kit-backend.vercel.app/
+
+**Frontend**: Ready for deployment! See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions.
+
+The frontend is configured to use the production backend. To deploy:
+1. Push your code to GitHub
+2. Import to Vercel and select the `frontend` directory
+3. Deploy!
+
+For detailed instructions, see the [Deployment Guide](DEPLOYMENT.md).
+
+
 ### Accessing the Application
 
 Open your browser and navigate to:

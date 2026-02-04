@@ -1,12 +1,55 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema; //schema comes from mongoose.schema
+const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
 
-//when you have to create connection to mongoDb, pass url
-//if you have already created cluster,  now connect , copy the url
-//in compass, paste as in new connection and repalace pass with previous once you created and add in mongoose.connect
-//new database,
-//in index.js
+// Serverless-safe MongoDB connection with caching
+// Use global variable to persist connection across serverless function invocations
+let cached = global.mongoose;
+
+if (!cached) {
+    cached = global.mongoose = { conn: null, promise: null };
+}
+
+const connectDB = async () => {
+    // Return existing connection if available
+    if (cached.conn) {
+        console.log("Using existing MongoDB connection");
+        return cached.conn;
+    }
+
+    // If no connection promise exists, create one
+    if (!cached.promise) {
+        const MONGO_URL = process.env.MONGO_URL;
+        
+        if (!MONGO_URL) {
+            throw new Error("MONGO_URL environment variable is not defined");
+        }
+
+        // MongoDB connection options optimized for serverless
+        const options = {
+            bufferCommands: false, // Disable buffering for serverless
+            maxPoolSize: 10, // Limit connections for serverless
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 45000,
+        };
+
+        console.log("Creating new MongoDB connection");
+        cached.promise = mongoose.connect(MONGO_URL, options).then((mongoose) => {
+            console.log("Connected to MongoDB");
+            return mongoose;
+        });
+    }
+
+    try {
+        cached.conn = await cached.promise;
+    } catch (error) {
+        cached.promise = null; // Reset promise on error to allow retry
+        console.error("Error connecting to MongoDB:", error);
+        throw error;
+    }
+
+    return cached.conn;
+};
 
 const userSchema = new Schema({ //schema is a class so, new
     email: { type: String, unique: true }, // these cant to reach two same email to DB
@@ -51,6 +94,7 @@ const Purchasemodel = mongoose.model("purchase", purchaseSchema);
 
 // Export the userModel, adminModel, courseModel, and purchaseModel to be used in other files
 module.exports = {
+    connectDB,
     Usermodel,
     Adminmodel,
     Coursemodel,

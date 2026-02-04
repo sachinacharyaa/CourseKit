@@ -1,15 +1,19 @@
 {
-  "name": "week-8-coursera",
+  "name": "coursekit-backend",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": ">=18.x"
+  },
   "scripts": {
     "dev": "nodemon index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": ["coursekit", "backend", "api", "vercel"],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "CourseKit Backend API - Serverless Express app for Vercel",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
