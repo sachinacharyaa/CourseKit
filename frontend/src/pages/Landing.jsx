@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { submitFeedback } from '../services/api';
 import { 
     BookOpen, 
     ChevronDown, 
@@ -14,13 +15,54 @@ import {
     CheckCircle2,
     Zap,
     Shield,
-    BarChart3
+    BarChart3,
+    MessageSquare,
+    Send,
+    Sparkles
 } from 'lucide-react';
 import './Landing.css';
 
 const Landing = () => {
     const { isAuthenticated, isUser, isAdmin } = useAuth();
     const [activeAccordion, setActiveAccordion] = useState(0);
+    
+    // Feedback state
+    const [feedbackMessage, setFeedbackMessage] = useState('');
+    const [feedbackEmail, setFeedbackEmail] = useState('');
+    const [feedbackStatus, setFeedbackStatus] = useState({ type: '', message: '' });
+    const [feedbackLoading, setFeedbackLoading] = useState(false);
+    const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
+
+    const handleFeedbackSubmit = async (e) => {
+        e.preventDefault();
+        
+        if (!feedbackMessage.trim()) {
+            setFeedbackStatus({ type: 'error', message: 'Please enter your feedback' });
+            return;
+        }
+
+        setFeedbackLoading(true);
+        setFeedbackStatus({ type: '', message: '' });
+
+        try {
+            await submitFeedback({
+                message: feedbackMessage.trim(),
+                email: feedbackEmail.trim() || undefined
+            });
+            
+            setFeedbackSubmitted(true);
+            setFeedbackMessage('');
+            setFeedbackEmail('');
+            setFeedbackStatus({ type: 'success', message: 'Thank you for your feedback!' });
+        } catch (error) {
+            setFeedbackStatus({ 
+                type: 'error', 
+                message: error.response?.data?.message || 'Failed to submit feedback. Please try again.' 
+            });
+        } finally {
+            setFeedbackLoading(false);
+        }
+    };
 
     const stats = [
         { value: '200,000+', label: 'Creators Worldwide' },
@@ -261,6 +303,101 @@ const Landing = () => {
                                 </Link>
                             </div>
                         )}
+                    </div>
+                </div>
+            </section>
+
+            {/* Feedback Section */}
+            <section className="feedback-section">
+                <div className="container">
+                    <div className="feedback-wrapper">
+                        {/* Decorative Elements */}
+                        <div className="feedback-decoration">
+                            <div className="decoration-circle circle-1"></div>
+                            <div className="decoration-circle circle-2"></div>
+                            <div className="decoration-circle circle-3"></div>
+                        </div>
+
+                        <div className="feedback-content">
+                            {/* Header */}
+                            <div className="feedback-header">
+                                <div className="feedback-icon-wrapper">
+                                    <MessageSquare size={28} />
+                                    <Sparkles size={16} className="sparkle-icon" />
+                                </div>
+                                <h2>How did you like CourseKit?</h2>
+                                <p className="feedback-subtitle">
+                                    Should we improve it with more features?
+                                    <br />
+                                    Please share your feedback below.
+                                </p>
+                                <span className="feedback-note">
+                                    Email is optional — we'll notify you when new features are added.
+                                </span>
+                            </div>
+
+                            {/* Form */}
+                            {!feedbackSubmitted ? (
+                                <form onSubmit={handleFeedbackSubmit} className="feedback-form">
+                                    <div className="feedback-input-group">
+                                        <textarea
+                                            value={feedbackMessage}
+                                            onChange={(e) => setFeedbackMessage(e.target.value)}
+                                            placeholder="Share your thoughts, suggestions, or ideas..."
+                                            className="feedback-textarea"
+                                            rows={4}
+                                            maxLength={2000}
+                                        />
+                                        <span className="char-count">{feedbackMessage.length}/2000</span>
+                                    </div>
+
+                                    <div className="feedback-input-group">
+                                        <input
+                                            type="email"
+                                            value={feedbackEmail}
+                                            onChange={(e) => setFeedbackEmail(e.target.value)}
+                                            placeholder="Your email (optional)"
+                                            className="feedback-email"
+                                        />
+                                    </div>
+
+                                    {feedbackStatus.message && (
+                                        <div className={`feedback-status ${feedbackStatus.type}`}>
+                                            {feedbackStatus.message}
+                                        </div>
+                                    )}
+
+                                    <button 
+                                        type="submit" 
+                                        className="feedback-submit"
+                                        disabled={feedbackLoading}
+                                    >
+                                        {feedbackLoading ? (
+                                            <span className="loading-spinner"></span>
+                                        ) : (
+                                            <>
+                                                <Send size={18} />
+                                                <span>Send Feedback</span>
+                                            </>
+                                        )}
+                                    </button>
+                                </form>
+                            ) : (
+                                <div className="feedback-success">
+                                    <div className="success-icon">
+                                        <CheckCircle2 size={48} />
+                                    </div>
+                                    <h3>Thank you for your feedback!</h3>
+                                    <p>Your input helps us make CourseKit better for everyone.</p>
+                                    <button 
+                                        onClick={() => setFeedbackSubmitted(false)}
+                                        className="feedback-another"
+                                    >
+                                        Send Another Feedback
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </section>

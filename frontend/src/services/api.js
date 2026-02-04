@@ -57,6 +57,9 @@ export const getAdminCourses = () => api.post('/admin/course/bulk');
 export const getCourses = () => api.post('/course/preview');
 export const purchaseCourse = (courseId) => api.post('/course/purchase', { courseId });
 
+// Feedback API (no authentication required)
+export const submitFeedback = (data) => api.post('/feedback', data);
+
 // Health check utility (useful for debugging)
 export const checkApiHealth = () => api.get('/health');
 

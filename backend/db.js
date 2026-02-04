@@ -87,16 +87,37 @@ const purchaseSchema = new Schema({
     // That’s it.
 })
 
+// Feedback schema for collecting user opinions
+const feedbackSchema = new Schema({
+    message: {
+        type: String,
+        required: true,
+        trim: true,
+        maxlength: 2000
+    },
+    email: {
+        type: String,
+        trim: true,
+        lowercase: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+})
+
 const Usermodel = mongoose.model("user", userSchema);
 const Adminmodel = mongoose.model("admin", adminSchema);
 const Coursemodel = mongoose.model("course", courseSchema);
 const Purchasemodel = mongoose.model("purchase", purchaseSchema);
+const Feedbackmodel = mongoose.model("feedback", feedbackSchema);
 
-// Export the userModel, adminModel, courseModel, and purchaseModel to be used in other files
+// Export models to be used in other files
 module.exports = {
     connectDB,
     Usermodel,
     Adminmodel,
     Coursemodel,
     Purchasemodel,
+    Feedbackmodel,
 };

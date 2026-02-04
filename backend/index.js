@@ -51,6 +51,7 @@ app.use(async (req, res, next) => {
 const { userRouter } = require("./routes/user");
 const { courseRouter } = require("./routes/course");
 const { AdminRouter } = require("./routes/admin");
+const { feedbackRouter } = require("./routes/feedback");
 
 // Root endpoint
 app.get("/", (req, res) => {
@@ -76,6 +77,7 @@ app.get("/health", (req, res) => {
 app.use("/user", userRouter);
 app.use("/course", courseRouter);
 app.use("/admin", AdminRouter);
+app.use("/feedback", feedbackRouter);
 
 // Handle 404 for undefined routes
 app.use((req, res) => {
